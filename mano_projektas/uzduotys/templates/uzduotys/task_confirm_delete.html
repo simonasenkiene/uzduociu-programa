@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><h1>Mano užduotys</h1>
+<p><a href="{% url 'task_create' %}">➕ Nauja užduotis</a> | <a href="{% url 'logout' %}">Atsijungti</a></p>
+<ul>
+  {% for task in tasks %}
+    <li>
+      <strong>{{ task.name }}</strong> – {{ task.created_at }}
+      <br>
+      <a href="{% url 'task_update' task.pk %}">✏️ Redaguoti</a>
+      |
+      <a href="{% url 'task_delete' task.pk %}">🗑️ Trinti</a>
+    </li>
+  {% empty %}
+    <li>Tu dar neturi jokių užduočių.</li>
+  {% endfor %}
+</ul><h1>{% if form.instance.pk %}Redaguoti{% else %}Sukurti{% endif %} užduotį</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">💾 Išsaugoti</button>
+</form>
+<a href="{% url 'task_list' %}">⬅️ Grįžti</a>
+
+<h1>Ar tikrai nori ištrinti užduotį "{{ task.name }}"?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">🗑️ Taip, trinti</button>
+</form>
+<a href="{% url 'task_list' %}">⬅️ Atšaukti</a>

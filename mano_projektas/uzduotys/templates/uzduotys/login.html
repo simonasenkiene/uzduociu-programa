@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prisijungimas</title>
+</head>
+<body>
+    <h2>Prisijungimas</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Prisijungti</button>
+    </form>
+</body>
+</html>
